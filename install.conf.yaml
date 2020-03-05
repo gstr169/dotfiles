@@ -1,6 +1,7 @@
 - clean: ['~']
 
 - link:
-    ~/.zshrc: zshrc
+    ~/.zshrc: config/zshrc
+    ~/.antigenrc: config/antigenrc
 
 
