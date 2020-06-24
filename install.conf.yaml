@@ -1,7 +1,16 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+      force: true
+    clean:
+      force: true
+
 - clean: ['~']
 
 - link:
+    ~/.shell: shell
     ~/.zshrc: config/zshrc
     ~/.antigenrc: config/antigenrc
-
+    ~/.antigen.zsh: antigen/antigen.zsh
 
