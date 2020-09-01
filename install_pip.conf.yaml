@@ -1,10 +1,8 @@
 - shell:
   - [python3 -m pip install --upgrade pip --user, Update pip]
-  - [python3 -m pip install pipx --user, Install pipx]
-  - [python3 -m pipx ensurepath, Add pipx to the PATH]
   - ['curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | POETRY_PREVIEW=1 python', Installing poetry]
 
-- pipx:
+- pip:
     file: requirements.txt
     user: true    # Like --user
     stdout: false # Print the execution stdout
