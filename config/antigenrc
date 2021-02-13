@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 antigen use oh-my-zsh
 antigen bundles <<EOBUNDLES
-  mattberther/zsh-pyenv
+	mattberther/zsh-pyenv
 	djui/alias-tips
 	docker 
 	docker-compose 
@@ -16,8 +16,8 @@ antigen bundles <<EOBUNDLES
 	thefuck
 	unixorn/autoupdate-antigen.zshplugin
 	zdharma/fast-syntax-highlighting
-  zsh-users/zsh-autosuggestions
-  zsh-users/zsh-completions
+	zsh-users/zsh-autosuggestions
+	zsh-users/zsh-completions
 	osx 
 	colored-man-pages 
 	colorize
