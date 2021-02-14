@@ -8,7 +8,8 @@ fi
 
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
-export PATH="$PATH:/Users/d.finko/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
+# export PATH="$PATH:/Users/d.finko/.local/bin"
 
 # That way Antigen will store it's info in an independent file, so it won't get corrupted by any other script/software
 export ADOTDIR="${HOME}/.antigen"
@@ -20,7 +21,7 @@ antigen init "${HOME}/.antigenrc"
 
 DEFAULT_USER=$USER
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="false"
+# CASE_SENSITIVE="false"
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="false"
@@ -71,5 +72,6 @@ source "$HOME/.poetry/env"
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
 fi
 
