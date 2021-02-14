@@ -1,26 +1,34 @@
 #!/usr/bin/env bash
+
+# Load the oh-my-zsh's library.
 antigen use oh-my-zsh
+
+# Load bundles.
 antigen bundles <<EOBUNDLES
-	mattberther/zsh-pyenv
-	djui/alias-tips
+	zsh-users/zsh-autosuggestions
+	zsh-users/zsh-completions
 	docker 
 	docker-compose 
 	extract
 	git
 	history
-	CyberShadow/per-directory-history
 	pip
 	pipenv
+	poetry
 	python
 	sublime
 	thefuck
-	zdharma/fast-syntax-highlighting
-	zsh-users/zsh-autosuggestions
-	zsh-users/zsh-completions
 	osx 
 	colored-man-pages 
 	colorize
-	poetry
+	djui/alias-tips
+	mattberther/zsh-pyenv
+	zdharma/fast-syntax-highlighting
+	CyberShadow/per-directory-history
 EOBUNDLES
+
+# Load the theme.
 antigen theme romkatv/powerlevel10k
+
+# Tell antigen that you're done.
 antigen apply
