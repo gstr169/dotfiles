@@ -17,6 +17,7 @@ For a better experience, I recommend to configurate new system in the next order
 	pyenv global {latest stable python version}
 
 After that configuration, you don't need worry about ruining your system python version.
+Source: https://raycent.medium.com/managing-python-on-macos-the-clean-way-7673cab874f6
 
 # How to install dotfiles:
 
