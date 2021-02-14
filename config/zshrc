@@ -9,7 +9,6 @@ fi
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
-# export PATH="$PATH:/Users/d.finko/.local/bin"
 
 # That way Antigen will store it's info in an independent file, so it won't get corrupted by any other script/software
 export ADOTDIR="${HOME}/.antigen"
