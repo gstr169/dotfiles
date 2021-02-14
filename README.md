@@ -23,3 +23,4 @@ After that configuration, you don't need worry about ruining your system python 
 	git clone https://github.com/gstr169/dotfiles.git .dotfiles
 	cd .dotfiles
 	./install
+
