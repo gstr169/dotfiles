@@ -14,7 +14,6 @@ antigen bundles <<EOBUNDLES
 	history
 	pip
 	pipenv
-	poetry
 	python
 	sublime
 	thefuck
@@ -26,6 +25,9 @@ antigen bundles <<EOBUNDLES
 	zdharma/fast-syntax-highlighting
 	CyberShadow/per-directory-history
 EOBUNDLES
+
+# Load custom bundles.
+antigen bundle $ZSH/custom/plugins/poetry/
 
 # Load the theme.
 antigen theme romkatv/powerlevel10k

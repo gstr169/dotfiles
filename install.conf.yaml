@@ -15,4 +15,4 @@
     ~/.antigen.zsh: antigen/antigen.zsh
 
 - create:
-  - ./projects
+  - ~/projects
