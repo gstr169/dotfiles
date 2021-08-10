@@ -9,6 +9,7 @@ fi
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
 
 # Golang settings
 export GOPATH=$HOME/go
@@ -82,5 +83,7 @@ alias vpn="~/utils/vpn.sh"
 source "$HOME/.shell/.p10k.zsh"
 
 source "$HOME/.poetry/env"
+eval "$(direnv hook zsh)"
+
 
 # eval "$(pyenv init --path)"
