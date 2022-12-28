@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -17,17 +17,15 @@ export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
 # For successful psycopg2 installing
-export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include"
+export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib -L/opt/homebrew/opt/zlib/lib -L/opt/homebrew/opt/protobuf/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include -I/opt/homebrew/opt/zlib/include -L/opt/homebrew/opt/protobuf/include"
+
+export OPENBLAS=/opt/homebrew/opt/openblas/lib/
 
 # That way Antigen will store it's info in an independent file, so it won't get corrupted by any other script/software
 export ADOTDIR="${HOME}/.antigen"
 export ANTIGEN_COMPDUMP="${ADOTDIR}/.zcompdump"
 export ANTIGEN_LOG="${ADOTDIR}/antigen.log"
-
-# For pyenv
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
 
 source "${HOME}/.antigen.zsh"
 antigen init "${HOME}/.antigenrc"
@@ -83,7 +81,21 @@ alias vpn="~/utils/vpn.sh"
 source "$HOME/.shell/.p10k.zsh"
 
 source "$HOME/.poetry/env"
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
 
 
-# eval "$(pyenv init --path)"
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
