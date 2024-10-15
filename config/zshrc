@@ -6,10 +6,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+export LANG="en_US.UTF-8"
+
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+export PATH="/opt/homebrew/opt/openssl/bin:$PATH"
 
 # Golang settings
 export GOPATH=$HOME/go
@@ -17,8 +19,8 @@ export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
 # For successful psycopg2 installing
-export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib -L/opt/homebrew/opt/zlib/lib -L/opt/homebrew/opt/protobuf/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include -I/opt/homebrew/opt/zlib/include -L/opt/homebrew/opt/protobuf/include"
+export LDFLAGS="-L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/zlib/lib -L/opt/homebrew/opt/protobuf/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/zlib/include -L/opt/homebrew/opt/protobuf/include"
 
 export OPENBLAS=/opt/homebrew/opt/openblas/lib/
 
@@ -86,18 +88,26 @@ source "$HOME/.poetry/env"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+# __conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+#         . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
 # <<< conda initialize <<<
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 export AUTOSWITCH_SILENT=1
+# Gcloud python
+export CLOUDSDK_PYTHON=/Users/dmitry_finko/.pyenv/versions/3.9.9/bin/python
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/dmitry_finko/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dmitry_finko/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/dmitry_finko/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dmitry_finko/google-cloud-sdk/completion.zsh.inc'; fi
