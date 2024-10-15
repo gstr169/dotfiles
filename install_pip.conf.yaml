@@ -1,7 +1,7 @@
 - shell:
   - [python3 -m pip install --upgrade pip --user, Update pip]
-  - ['curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | POETRY_PREVIEW=1 python', Installing poetry]
-  - ['poetry completions zsh > $ZSH/custom/plugins/poetry/_poetry']
+  # - ['curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | POETRY_PREVIEW=1 python', Installing poetry]
+  # - ['poetry completions zsh > $ZSH/custom/plugins/poetry/_poetry']
 
 - pip:
     file: requirements.txt

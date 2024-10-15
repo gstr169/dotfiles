@@ -16,9 +16,10 @@ antigen bundles <<EOBUNDLES
 	history
 	pip
 	python
+	pyenv
 	sublime
 	thefuck
-	osx 
+	macos 
 	colored-man-pages 
 	colorize
 	djui/alias-tips
