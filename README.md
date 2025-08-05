@@ -13,8 +13,10 @@ For a better experience, I recommend to configurate new system in the next order
 ## PyEnv configuration
 
 	brew install pyenv
-	pyenv install {latest stable python version, check here: [link](https://devguide.python.org/versions/)}
+	pyenv install {latest stable python version}
 	pyenv global {same version}
+
+Latest stable python version you can check here: [link](https://devguide.python.org/versions/)
 
 After that configuration, you don't need worry about ruining your system python version.
 Source: https://raycent.medium.com/managing-python-on-macos-the-clean-way-7673cab874f6
