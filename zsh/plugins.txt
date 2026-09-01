@@ -1,0 +1,48 @@
+# antidote bundle list. Order matters: use-omz first, syntax/autosuggest last, theme after.
+# Docs: https://antidote.sh  |  Enable an opt-in plugin by removing its leading '#'.
+
+# --- Oh My Zsh bridge (must be first; handles compinit, compdef, $ZSH, caches) ---
+getantidote/use-omz
+ohmyzsh/ohmyzsh path:lib
+
+# --- Oh My Zsh plugins ---
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/docker
+ohmyzsh/ohmyzsh path:plugins/docker-compose
+ohmyzsh/ohmyzsh path:plugins/extract
+ohmyzsh/ohmyzsh path:plugins/pip
+ohmyzsh/ohmyzsh path:plugins/python
+ohmyzsh/ohmyzsh path:plugins/pyenv
+ohmyzsh/ohmyzsh path:plugins/direnv conditional:has-direnv
+ohmyzsh/ohmyzsh path:plugins/kubectl
+ohmyzsh/ohmyzsh path:plugins/helm
+ohmyzsh/ohmyzsh path:plugins/terraform
+ohmyzsh/ohmyzsh path:plugins/gh
+ohmyzsh/ohmyzsh path:plugins/sudo
+ohmyzsh/ohmyzsh path:plugins/copyfile
+ohmyzsh/ohmyzsh path:plugins/copypath
+ohmyzsh/ohmyzsh path:plugins/colored-man-pages
+ohmyzsh/ohmyzsh path:plugins/brew conditional:is-macos
+ohmyzsh/ohmyzsh path:plugins/macos conditional:is-macos
+
+# --- Completions (fpath only) ---
+zsh-users/zsh-completions path:src kind:fpath
+
+# --- Behaviour ---
+Aloxaf/fzf-tab
+djui/alias-tips
+CyberShadow/per-directory-history
+MichaelAquilina/zsh-autoswitch-virtualenv
+
+# --- Must load last, before the theme ---
+z-shell/F-Sy-H kind:defer
+zsh-users/zsh-autosuggestions kind:defer
+
+# --- Theme ---
+romkatv/powerlevel10k
+
+# --- Opt-in (see docs/TRY.md) ---
+#olets/zsh-abbr kind:defer
+#MichaelAquilina/zsh-you-should-use
+#wfxr/forgit
+#ohmyzsh/ohmyzsh path:plugins/atuin      # needs: brew install atuin

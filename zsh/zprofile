@@ -1,0 +1,31 @@
+# Login shells only: one-time PATH setup. iTerm2, Terminal, ssh and Linux
+# terminals all start login shells, so this is where brew and pyenv go.
+
+# Homebrew: first prefix that exists wins (Apple Silicon, Intel, Linuxbrew).
+for _p in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
+  if [[ -x "$_p/bin/brew" ]]; then
+    eval "$("$_p/bin/brew" shellenv)"
+    break
+  fi
+done
+unset _p
+
+# pyenv: shims must be on PATH before anything looks for python.
+export PYENV_ROOT="${PYENV_ROOT:-$HOME/.pyenv}"
+[[ -d "$PYENV_ROOT/bin" ]] && path=("$PYENV_ROOT/bin" $path)
+(( $+commands[pyenv] )) && eval "$(pyenv init --path)"
+
+# JetBrains Toolbox CLI launchers (pycharm, goland).
+for _p in "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" \
+          "$HOME/.local/share/JetBrains/Toolbox/scripts"; do
+  [[ -d "$_p" ]] && path+=("$_p")
+done
+unset _p
+
+# Editor: micro if installed, nano otherwise (nano ships everywhere).
+if (( $+commands[micro] )); then
+  export EDITOR=micro
+else
+  export EDITOR=nano
+fi
+export VISUAL="$EDITOR"

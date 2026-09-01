@@ -1,0 +1,28 @@
+# Interactive shells. Order: instant prompt -> options -> plugins -> rc.d -> theme -> local.
+
+# Powerlevel10k instant prompt. Must stay at the top; nothing above may print.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Repo root, derived from this file's real path (works wherever the repo lives).
+export DOTFILES="${${(%):-%x}:A:h:h}"
+
+source "$DOTFILES/zsh/rc.d/00-options.zsh"
+
+# Plugins via antidote (static file rebuilt only when plugins.txt changes).
+source "$DOTFILES/antidote/antidote.zsh"
+antidote load "$DOTFILES/zsh/plugins.txt" "${XDG_CACHE_HOME:-$HOME/.cache}/antidote/plugins.zsh"
+
+for _f in "$DOTFILES"/zsh/rc.d/[1-9]*.zsh; do
+  source "$_f"
+done
+unset _f
+
+case "$OSTYPE" in
+  darwin*) source "$DOTFILES/zsh/rc.d/macos.zsh" ;;
+  linux*)  source "$DOTFILES/zsh/rc.d/linux.zsh" ;;
+esac
+
+[[ -f "$DOTFILES/zsh/p10k.zsh" ]] && source "$DOTFILES/zsh/p10k.zsh"
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
