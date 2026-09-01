@@ -31,7 +31,8 @@ Answers are remembered in `~/.dotfiles.local`. Delete a line to be asked again.
 | | macOS | Linux |
 |---|---|---|
 | CLI (`Brewfile`) | fzf, zoxide, eza, bat, ripgrep, fd, delta, lazygit, micro, jq, git-flow, awscli, kubectl, helm, k9s, stern, gh, pyenv, virtualenv, uv, black, go, rustup, libpq, postgresql@14, ... | same, via Linuxbrew |
-| Required GUI (`Brewfile.macos`) | iTerm2, Sublime Text, JetBrains Toolbox, Docker Desktop, Chrome, Enpass, MesloLGS Nerd Font | none |
+| Required GUI (`Brewfile.macos`) | iTerm2, Sublime Text, JetBrains Toolbox, Docker Desktop, Chrome, Enpass | none |
+| Prompt font | MesloLGS NF, downloaded into `~/Library/Fonts` | MesloLGS NF, into `~/.local/share/fonts` |
 | Optional groups | Messaging, Notes and AI, Media and cloud, Network | Browser and editors, Messaging, Media, Network, Docker Engine (`linux-gui/`) |
 | Prompt and editor | powerlevel10k; `EDITOR` = micro, nano fallback | same |
 
@@ -49,7 +50,7 @@ auto-detected), pyenv Python versions, JetBrains IDEs (use Toolbox).
 - Copy `~/.ssh` from the old machine.
 - Put the work email in `git/gitconfig-argo` (applies under `~/projects/argo/`).
 - `pyenv install 3.12.x && pyenv global 3.12.x` (current versions: https://devguide.python.org/versions/).
-- Open a new terminal. First start clones plugins and is slower.
+- Open a new terminal in **iTerm2**, not Terminal.app: the tracked profile sets the MesloLGS NF font so prompt icons render. First start clones plugins and is slower.
 - Run `tests/check-shell.sh` to verify.
 - See [docs/TRY.md](docs/TRY.md) for the new tools worth learning.
 

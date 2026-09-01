@@ -102,6 +102,26 @@ brew bundle --file=Brewfile
 # This is Homebrew's documented fix: https://docs.brew.sh/Shell-Completion
 chmod -R go-w "$(brew --prefix)/share/zsh" 2>/dev/null || true
 
+# Prompt font: powerlevel10k's "MesloLGS NF", the family the tracked iTerm2 profile uses.
+# (Homebrew's Nerd Font casks install a differently named family, so they do not match.)
+log "MesloLGS NF font"
+if [ "$OS" = Darwin ]; then font_dir="$HOME/Library/Fonts"; else font_dir="$HOME/.local/share/fonts"; fi
+mkdir -p "$font_dir"
+font_added=""
+for style in Regular Bold Italic "Bold Italic"; do
+  f="MesloLGS NF $style.ttf"
+  if [ ! -f "$font_dir/$f" ]; then
+    curl -fsSL "https://github.com/romkatv/powerlevel10k-media/raw/master/${f// /%20}" -o "$font_dir/$f"
+    font_added=1
+  fi
+done
+if [ -n "$font_added" ]; then
+  echo "  installed to $font_dir"
+  [ "$OS" = Linux ] && command -v fc-cache >/dev/null && fc-cache -f "$font_dir" >/dev/null
+else
+  echo "  already installed"
+fi
+
 # git-flow (AVH edition). Homebrew dropped the formula, so build from source into ~/.local.
 log "git-flow (AVH)"
 if command -v git-flow >/dev/null; then

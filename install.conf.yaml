@@ -12,10 +12,15 @@
 
 - create:
     ~/projects:
+      mode: 0755
     ~/.virtualenvs:
+      mode: 0755
     ~/.config/git:
+      mode: 0755
     ~/.config/micro:
+      mode: 0755
     ~/.config/lazygit:
+      mode: 0755
     ~/.ssh:
       mode: 0700
 
