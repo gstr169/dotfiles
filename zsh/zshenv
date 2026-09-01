@@ -5,5 +5,9 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 export LANG="${LANG:-en_US.UTF-8}"
 
+# Debian/Ubuntu's /etc/zsh/zshrc runs a bare `compinit` before ~/.zshrc unless told not to.
+# Our plugin loader runs compinit itself (with -u), so skip the global one.
+skip_global_compinit=1
+
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 [[ -f "$HOME/.zshenv.local" ]] && source "$HOME/.zshenv.local"

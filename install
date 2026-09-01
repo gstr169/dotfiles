@@ -98,6 +98,9 @@ log "Dotbot: links and directories"
 # --- 2. packages ------------------------------------------------------------
 log "Homebrew CLI packages"
 brew bundle --file=Brewfile
+# zsh's compinit refuses group/world-writable completion dirs (common with Linuxbrew).
+# This is Homebrew's documented fix: https://docs.brew.sh/Shell-Completion
+chmod -R go-w "$(brew --prefix)/share/zsh" 2>/dev/null || true
 
 if [ "$OS" = Darwin ] && [ -z "$NO_GUI" ]; then
   log "macOS apps"
