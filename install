@@ -71,6 +71,9 @@ for p in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
 done
 command -v brew >/dev/null || { echo "install: Homebrew not found; run ./bootstrap.sh first" >&2; exit 1; }
 export HOMEBREW_NO_ENV_HINTS=1
+# Only install what is missing. Upgrades (which may need sudo for casks) are a
+# separate, deliberate step: `brew upgrade`.
+export HOMEBREW_BUNDLE_NO_UPGRADE=1
 
 # --- 1. submodules and dotbot ---------------------------------------------
 log "Submodules"

@@ -24,6 +24,10 @@ run_zsh() {
   rm -f "$wrapper"
 }
 
+# 0. Warm-up: the very first start clones plugins and reports progress on stderr.
+run_zsh 'exit'
+: > "$errfile"
+
 # 1. Startup produces no stderr output.
 run_zsh 'exit'
 if [ -s "$errfile" ]; then
