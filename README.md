@@ -45,7 +45,7 @@ auto-detected), pyenv Python versions, JetBrains IDEs (use Toolbox).
 
 - Copy `~/.ssh` from the old machine.
 - Put the work email in `git/gitconfig-argo` (applies under `~/projects/argo/`).
-- `pyenv install 3.12.x && pyenv global 3.12.x`.
+- `pyenv install 3.12.x && pyenv global 3.12.x` (current versions: https://devguide.python.org/versions/).
 - Open a new terminal. First start clones plugins and is slower.
 - Run `tests/check-shell.sh` to verify.
 - See [docs/TRY.md](docs/TRY.md) for the new tools worth learning.
