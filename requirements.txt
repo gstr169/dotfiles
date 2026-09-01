@@ -1,5 +1,0 @@
-thefuck
-youtube-dl
-magic-wormhole
-virtualenv
-uv

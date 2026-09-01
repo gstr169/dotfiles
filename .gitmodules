@@ -1,10 +1,6 @@
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
-[submodule "antigen"]
-	path = antigen
-	url = https://github.com/zsh-users/antigen.git
-	branch = develop
-[submodule "dotbot-pip"]
-	path = dotbot-pip
-	url = https://github.com/sobolevn/dotbot-pip.git
+[submodule "antidote"]
+	path = antidote
+	url = https://github.com/mattmc3/antidote.git
