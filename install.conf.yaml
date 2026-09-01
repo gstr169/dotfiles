@@ -1,3 +1,4 @@
+# Dotbot config shared by macOS and Linux. Run via ./install, not directly.
 - defaults:
     link:
       create: true
@@ -6,14 +7,23 @@
     clean:
       force: true
 
-- clean: ['~']
-
-- link:
-    ~/.shell: shell
-    ~/.zshrc: config/zshrc
-    ~/.antigenrc: config/antigenrc
-    ~/.antigen.zsh: antigen/antigen.zsh
+# Remove dead symlinks (including the old ~/.antigen.zsh, ~/.antigenrc, ~/.shell).
+- clean: ['~', '~/.config/git', '~/.config/micro', '~/.config/lazygit']
 
 - create:
-  - ~/projects
-  - ~/subl_notes
+    ~/projects:
+    ~/.virtualenvs:
+    ~/.config/git:
+    ~/.config/micro:
+    ~/.config/lazygit:
+    ~/.ssh:
+      mode: 0700
+
+- link:
+    ~/.zshenv: zsh/zshenv
+    ~/.zprofile: zsh/zprofile
+    ~/.zshrc: zsh/zshrc
+    ~/.gitconfig: git/gitconfig
+    ~/.config/git/ignore: git/gitignore_global
+    ~/.config/micro/settings.json: config/micro/settings.json
+    ~/.config/lazygit/config.yml: config/lazygit/config.yml

@@ -1,26 +1,164 @@
 #!/usr/bin/env bash
+# Dotfiles installer. Safe to re-run. See README.md.
+#   ./install [--all|--none] [--no-gui] [--no-chsh] [--no-cargo]
+set -euo pipefail
 
-set -e
-
-CONFIG="install.conf.yaml"
-CONFIG_PIP="install_pip.conf.yaml"
-DOTBOT_DIR="dotbot"
-
-DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$BASEDIR"
 
-cd "${BASEDIR}"
-# git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
-git submodule update --init --recursive --remote
+usage() {
+  sed -n '2,3p' "$0"
+  cat <<'USAGE'
+  --all       accept every optional group without asking
+  --none      decline every optional group without asking
+  --no-gui    skip GUI apps (casks / linux-gui) entirely
+  --no-chsh   do not change the login shell
+  --no-cargo  skip cargo-installed tools (pay-respects)
+Answers to prompts are remembered in ~/.dotfiles.local; delete a line there to be asked again.
+USAGE
+}
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+ANSWER_ALL=""; NO_GUI=""; NO_CHSH=""; NO_CARGO=""
+for arg in "$@"; do
+  case "$arg" in
+    --all) ANSWER_ALL=y ;;
+    --none) ANSWER_ALL=n ;;
+    --no-gui) NO_GUI=1 ;;
+    --no-chsh) NO_CHSH=1 ;;
+    --no-cargo) NO_CARGO=1 ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "install: unknown flag '$arg'" >&2; usage >&2; exit 2 ;;
+  esac
+done
 
-echo "Make zsh default"
-echo 'chsh -s $(which zsh)'
+OS="$(uname -s)"
+case "$OS" in
+  Darwin) ;;
+  Linux) [ -f /etc/debian_version ] || { echo "install: only Debian/Ubuntu Linux is supported" >&2; exit 1; } ;;
+  *) echo "install: unsupported OS '$OS'" >&2; exit 1 ;;
+esac
 
-read -p "Install PIP staff? " -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" --plugin-dir dotbot-pip -c "${CONFIG_PIP}" "${@}"
+log()  { printf '\n\033[1;34m==> %s\033[0m\n' "$*"; }
+warn() { printf '\033[1;33mwarning:\033[0m %s\n' "$*"; }
+
+# --- remembered answers ---------------------------------------------------
+STATE="$HOME/.dotfiles.local"
+touch "$STATE"
+state_get() { grep -E "^$1=" "$STATE" | tail -1 | cut -d= -f2- || true; }
+state_set() {
+  { grep -vE "^$1=" "$STATE" || true; echo "$1=$2"; } > "$STATE.tmp"
+  mv "$STATE.tmp" "$STATE"
+}
+# ask_group KEY DESCRIPTION -> exit 0 if accepted
+ask_group() {
+  local key="$1" desc="$2" ans
+  ans="$(state_get "group_$key")"
+  if [ -z "$ans" ]; then
+    if [ -n "$ANSWER_ALL" ]; then
+      ans="$ANSWER_ALL"
+    else
+      read -r -p "Install $desc? [y/N] " ans </dev/tty || ans=n
+      ans="${ans:-n}"
+    fi
+    state_set "group_$key" "$ans"
+  fi
+  [[ "$ans" =~ ^[Yy] ]]
+}
+
+# --- homebrew on PATH for this run ----------------------------------------
+for p in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
+  if [ -x "$p/bin/brew" ]; then eval "$("$p/bin/brew" shellenv)"; break; fi
+done
+command -v brew >/dev/null || { echo "install: Homebrew not found; run ./bootstrap.sh first" >&2; exit 1; }
+export HOMEBREW_NO_ENV_HINTS=1
+
+# --- 1. submodules and dotbot ---------------------------------------------
+log "Submodules"
+git submodule update --init --recursive
+
+log "Backing up files that will be replaced by symlinks"
+backup_dir="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
+while read -r target; do
+  target="${target/#\~/$HOME}"
+  if [ -f "$target" ] && [ ! -L "$target" ]; then
+    mkdir -p "$backup_dir"
+    cp -p "$target" "$backup_dir/$(basename "$target")"
+    echo "  $target -> $backup_dir/"
+  fi
+done < <(sed -nE 's/^    (~[^:]+):.*/\1/p' install.conf.yaml)
+[ -d "$backup_dir" ] || echo "  nothing to back up"
+
+log "Dotbot: links and directories"
+./dotbot/bin/dotbot -d "$BASEDIR" -c install.conf.yaml
+[ "$OS" = Darwin ] && ./dotbot/bin/dotbot -d "$BASEDIR" -c install.macos.yaml
+
+# --- 2. packages ------------------------------------------------------------
+log "Homebrew CLI packages"
+brew bundle --file=Brewfile
+
+if [ "$OS" = Darwin ] && [ -z "$NO_GUI" ]; then
+  log "macOS apps"
+  HOMEBREW_BUNDLE_CASK_SKIP="$(scripts/cask-skip.sh Brewfile.macos Brewfile.macos.optional)"
+  export HOMEBREW_BUNDLE_CASK_SKIP
+  [ -n "$HOMEBREW_BUNDLE_CASK_SKIP" ] && echo "  already in /Applications, skipping: $HOMEBREW_BUNDLE_CASK_SKIP"
+  brew bundle --file=Brewfile.macos
+
+  optional_tmp="$(mktemp)"
+  while read -r key desc; do
+    if ask_group "$key" "$desc"; then
+      awk -v g="$key" '/^# group: /{on=($0 ~ "^# group: "g" ")} on && /^cask /' Brewfile.macos.optional >> "$optional_tmp"
+    fi
+  done < <(sed -nE 's/^# group: ([^ ]+) \| (.*)$/\1 \2/p' Brewfile.macos.optional)
+  if [ -s "$optional_tmp" ]; then brew bundle --file="$optional_tmp"; fi
+  rm -f "$optional_tmp"
+
+  if ask_group macos-defaults "macOS defaults (fast key repeat, show hidden files)"; then
+    ./macos-defaults.sh
+  fi
 fi
+
+if [ "$OS" = Linux ] && [ -z "$NO_GUI" ]; then
+  log "Linux GUI apps"
+  for script in linux-gui/*.sh; do
+    key="$(basename "$script" .sh)"
+    desc="$(sed -n '2s/^# desc: //p' "$script")"
+    if ask_group "$key" "$desc"; then "$script"; fi
+  done
+  echo "  Not available on Linux (use the web apps): Notion, Claude desktop, ChatGPT desktop, Google Drive (use rclone)."
+fi
+
+# --- 3. cargo tools ----------------------------------------------------------
+if [ -z "$NO_CARGO" ]; then
+  log "Cargo tools"
+  if command -v rustup >/dev/null && ! rustup toolchain list 2>/dev/null | grep -q stable; then
+    rustup default stable
+  fi
+  if command -v cargo >/dev/null; then
+    command -v pay-respects >/dev/null || cargo install --locked pay-respects
+  else
+    warn "cargo not found; skipping pay-respects (run: rustup default stable && cargo install --locked pay-respects)"
+  fi
+fi
+
+# --- 4. login shell ----------------------------------------------------------
+if [ -z "$NO_CHSH" ]; then
+  zsh_path="$(command -v zsh)"
+  if [ "$(basename "${SHELL:-}")" != zsh ]; then
+    log "Login shell -> $zsh_path"
+    grep -qx "$zsh_path" /etc/shells || echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
+    chsh -s "$zsh_path"
+  fi
+fi
+
+# --- 5. follow-ups ------------------------------------------------------------
+log "Done. Manual follow-ups:"
+cat <<FOLLOWUPS
+  - Open a new terminal (antidote clones plugins on first start; that one takes longer).
+  - Copy ~/.ssh keys and ~/.ssh/config from the old machine (nothing SSH is tracked).
+  - Set the work email in $BASEDIR/git/gitconfig-argo (placeholder CHANGE_ME@work.example).
+  - pyenv install <versions you need>; pyenv global <version>.
+  - Sign in to JetBrains Toolbox and install PyCharm / GoLand.
+  - Google Cloud SDK, if needed: install to ~/google-cloud-sdk (auto-detected by the shell).
+FOLLOWUPS
+[ "$OS" = Linux ] && echo "  - Log out and back in if you were added to the docker group."
+echo "  - Verify: $BASEDIR/tests/check-shell.sh"
