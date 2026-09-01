@@ -1,0 +1,19 @@
+# Optional macOS apps. ./install asks once per group and remembers the answer
+# in ~/.dotfiles.local. Group header format is parsed by install; keep it:
+#   # group: <key> | <Description shown in the prompt>
+
+# group: messaging | Messaging: Slack, Telegram
+cask "slack"
+cask "telegram"
+
+# group: notes-ai | Notes and AI: Notion, Claude, ChatGPT
+cask "notion"
+cask "claude"
+cask "chatgpt"
+
+# group: media-cloud | Media and cloud: VLC, Google Drive
+cask "vlc"
+cask "google-drive"
+
+# group: network | Network: Tailscale
+cask "tailscale-app"

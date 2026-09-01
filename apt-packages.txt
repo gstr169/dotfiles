@@ -1,0 +1,9 @@
+build-essential
+zsh
+git
+curl
+file
+procps
+ca-certificates
+gnupg
+nano

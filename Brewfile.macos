@@ -1,0 +1,8 @@
+# Required macOS GUI apps and the prompt font.
+cask "font-meslo-lg-nerd-font"
+cask "iterm2"
+cask "sublime-text"
+cask "jetbrains-toolbox"
+cask "docker-desktop"
+cask "google-chrome"
+cask "enpass"
