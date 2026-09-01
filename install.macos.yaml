@@ -1,0 +1,7 @@
+# macOS-only dotbot steps. Run by ./install after install.conf.yaml.
+- shell:
+  - description: Point iTerm2 at the tracked preferences folder
+    command: |
+      defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.dotfiles/iterm2"
+      defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+    stderr: true

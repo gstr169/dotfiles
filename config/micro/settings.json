@@ -1,0 +1,10 @@
+{
+    "colorscheme": "monokai",
+    "mouse": true,
+    "rmtrailingws": true,
+    "softwrap": true,
+    "tabsize": 4,
+    "tabstospaces": true,
+    "scrollbar": true,
+    "savecursor": true
+}
