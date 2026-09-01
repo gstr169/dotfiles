@@ -136,10 +136,18 @@ if [ -z "$NO_CARGO" ]; then
   if command -v rustup >/dev/null && ! rustup toolchain list 2>/dev/null | grep -q stable; then
     rustup default stable
   fi
-  if command -v cargo >/dev/null; then
-    command -v pay-respects >/dev/null || cargo install --locked pay-respects
-  else
+  if command -v pay-respects >/dev/null; then
+    echo "  pay-respects already installed"
+  elif ! command -v cargo >/dev/null; then
     warn "cargo not found; skipping pay-respects (run: rustup default stable && cargo install --locked pay-respects)"
+  else
+    # pay-respects needs Rust 1.85+ (edition 2024). Do not touch the user's toolchain silently.
+    cargo_minor="$(cargo --version | sed -E 's/^cargo 1\.([0-9]+).*/\1/')"
+    if [ "${cargo_minor:-0}" -lt 85 ]; then
+      warn "cargo $(cargo --version | cut -d' ' -f2) is too old for pay-respects; run: rustup update stable && cargo install --locked pay-respects"
+    else
+      cargo install --locked pay-respects || warn "pay-respects failed to build; retry with: cargo install --locked pay-respects"
+    fi
   fi
 fi
 
