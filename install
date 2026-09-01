@@ -102,6 +102,18 @@ brew bundle --file=Brewfile
 # This is Homebrew's documented fix: https://docs.brew.sh/Shell-Completion
 chmod -R go-w "$(brew --prefix)/share/zsh" 2>/dev/null || true
 
+# git-flow (AVH edition). Homebrew dropped the formula, so build from source into ~/.local.
+log "git-flow (AVH)"
+if command -v git-flow >/dev/null; then
+  echo "  already installed: $(command -v git-flow)"
+else
+  gf_tmp="$(mktemp -d)"
+  git clone -q --depth 1 https://github.com/petervanderdoes/gitflow-avh.git "$gf_tmp/gitflow-avh"
+  make -C "$gf_tmp/gitflow-avh" prefix="$HOME/.local" install >/dev/null
+  rm -rf "$gf_tmp"
+  echo "  installed to $HOME/.local/bin/git-flow"
+fi
+
 if [ "$OS" = Darwin ] && [ -z "$NO_GUI" ]; then
   log "macOS apps"
   HOMEBREW_BUNDLE_CASK_SKIP="$(scripts/cask-skip.sh Brewfile.macos Brewfile.macos.optional)"

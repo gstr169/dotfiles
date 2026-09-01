@@ -5,7 +5,7 @@
 brew "zsh"
 brew "git"
 brew "git-lfs"
-brew "git-flow-avh"
+brew "gnu-getopt"   # needed by git-flow (AVH), which ./install builds from source
 brew "micro"
 brew "fzf"
 brew "zoxide"

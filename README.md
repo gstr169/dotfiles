@@ -38,6 +38,9 @@ Answers are remembered in `~/.dotfiles.local`. Delete a line to be asked again.
 Apps already present in `/Applications` are skipped, even if they were not
 installed with brew.
 
+git-flow (AVH edition) is built from source into `~/.local/bin`, because Homebrew
+removed its formula.
+
 Not managed: SSH keys, Google Cloud SDK (install to `~/google-cloud-sdk`; it is
 auto-detected), pyenv Python versions, JetBrains IDEs (use Toolbox).
 

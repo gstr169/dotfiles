@@ -16,10 +16,11 @@ run_zsh() {
   local wrapper; wrapper="$(mktemp)"
   printf '#!/usr/bin/env bash\nzsh -ilc %q 2>%q\n' "$1" "$errfile" > "$wrapper"
   chmod +x "$wrapper"
+  # stdin from /dev/null so this also works when piped through `curl | bash`.
   if [ "$(uname -s)" = Darwin ]; then
-    script -q /dev/null "$wrapper" >/dev/null
+    script -q /dev/null "$wrapper" </dev/null >/dev/null
   else
-    script -qec "$wrapper" /dev/null >/dev/null
+    script -qec "$wrapper" /dev/null </dev/null >/dev/null
   fi
   rm -f "$wrapper"
 }
