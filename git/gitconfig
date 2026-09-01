@@ -1,0 +1,37 @@
+[user]
+	name = dmitry.finko
+	email = dmit.finn@yandex.ru
+
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+	default = current
+[fetch]
+	prune = true
+[rerere]
+	enabled = true
+[diff]
+	colorMoved = default
+[merge]
+	conflictStyle = zdiff3
+
+[core]
+	excludesfile = ~/.config/git/ignore
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+
+# Work identity for everything under ~/projects/argo/
+[includeIf "gitdir:~/projects/argo/"]
+	path = ~/.dotfiles/git/gitconfig-argo
+
+# Machine-local overrides (signing key, credential helper, ...). Ignored if missing.
+[include]
+	path = ~/.gitconfig.local
