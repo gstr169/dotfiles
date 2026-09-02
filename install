@@ -186,6 +186,8 @@ fi
 # --- 3. cargo tools ----------------------------------------------------------
 if [ -z "$NO_CARGO" ]; then
   log "Cargo tools"
+  # brew's rustup is keg-only; its cargo proxy is not on PATH by default.
+  [ -d "$(brew --prefix)/opt/rustup/bin" ] && PATH="$(brew --prefix)/opt/rustup/bin:$PATH"
   if command -v rustup >/dev/null && ! rustup toolchain list 2>/dev/null | grep -q stable; then
     rustup default stable
   fi
