@@ -60,6 +60,10 @@ last command.
 
 **extract**. `x archive.tar.gz` unpacks anything.
 
+**macmon / temp** (macOS). `temp` prints one line: chip temperature, watts, and
+which cores are busy. `macmon` alone is a live dashboard. Use `top -o power` next
+to it to see which app is responsible.
+
 **Aliases** worth remembering: `..`, `...`, `-` (previous dir), `dotfiles`,
 `reload`, `tf`, `k` (kubectl), `mkvenv`, `uvcompile`, `uvsync`.
 

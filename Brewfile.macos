@@ -1,4 +1,7 @@
 # Required macOS GUI apps. (The prompt font is downloaded by ./install, not a cask.)
+
+# macOS-only CLI: sudo-free temperature/power monitor for Apple Silicon (`macmon`, `temp`).
+brew "macmon"
 cask "iterm2"
 cask "sublime-text"
 cask "jetbrains-toolbox"
