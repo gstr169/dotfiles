@@ -24,7 +24,7 @@ history and global history.
 **eza** (ls). `ls`, `ll`, `la` are aliased. `lt` shows a two-level tree.
 Git status shows next to each file inside a repo.
 
-**bat** (cat). `cat file.py` is highlighted. Piping still gives plain text.
+**bat** (cat). `bat file.py` is `cat` with syntax highlighting. `cat` itself is unchanged.
 `bat -l yaml -` highlights stdin. `man` pages are rendered through bat.
 
 **fd** (find). `fd pattern` searches file names recursively, ignoring `.git`

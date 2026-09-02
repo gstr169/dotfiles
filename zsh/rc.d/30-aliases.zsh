@@ -10,9 +10,8 @@ else
   alias la='ls -lAh'
 fi
 
-if (( $+commands[bat] )); then
-  alias cat='bat --paging=never --style=plain'
-fi
+# cat is NOT aliased to bat: bat rejects standard cat flags such as -v and -A.
+# Use `bat file` for highlighting; `cat` stays the real cat.
 
 (( $+commands[lazygit] )) && alias lg='lazygit'
 (( $+commands[terraform] )) && alias tf='terraform'
