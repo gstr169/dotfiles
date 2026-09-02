@@ -3,4 +3,4 @@
 [user]
 	email = CHANGE_ME@work.example
 [core]
-	sshCommand = ssh -i ~/.ssh/argo_id_rsa
+	sshCommand = ssh -i ~/.ssh/argo
