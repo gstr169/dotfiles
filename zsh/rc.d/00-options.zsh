@@ -17,7 +17,7 @@ setopt INTERACTIVE_COMMENTS   # allow `# comment` on the command line
 
 # Oh My Zsh flags (read by lib/ when it loads)
 HIST_STAMPS="yyyy-mm-dd"
-ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"   # was set in the old config but never took effect; keep old behaviour
 HYPHEN_INSENSITIVE="false"
 DISABLE_AUTO_UPDATE="true"
 DISABLE_UPDATE_PROMPT="true"
