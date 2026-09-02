@@ -1,6 +1,6 @@
 # Applied automatically for repos under ~/projects/argo/ (see gitconfig includeIf).
 # Replace the placeholder email after install.
 [user]
-	email = CHANGE_ME@work.example
+	email = dmitriy.finko@argomedia.co
 [core]
 	sshCommand = ssh -i ~/.ssh/argo

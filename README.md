@@ -52,7 +52,7 @@ auto-detected), pyenv Python versions, JetBrains IDEs (use Toolbox).
 ## After install
 
 - Copy `~/.ssh` from the old machine.
-- Put the work email in `git/gitconfig-argo` (applies under `~/projects/argo/`).
+- Work email for repos under `~/projects/argo/`: create the untracked `~/.gitconfig-argo.local` with `[user] email = ...`. The tracked `git/gitconfig-argo` includes it.
 - `pyenv install 3.12.x && pyenv global 3.12.x` (current versions: https://devguide.python.org/versions/).
 - Open a new terminal in **iTerm2**, not Terminal.app: the tracked profile sets the MesloLGS NF font so prompt icons render. First start clones plugins and is slower.
 - Run `tests/check-shell.sh` to verify.

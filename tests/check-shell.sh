@@ -46,15 +46,20 @@ ok "required commands on PATH"
 editor="$(zsh -ilc 'echo $EDITOR' 2>/dev/null | tail -1)"
 case "$editor" in micro|nano) ok "EDITOR=$editor" ;; *) fail "EDITOR is '$editor', expected micro or nano" ;; esac
 
-# 4. Git identity: personal by default, placeholder under ~/projects/argo/.
+# 4. Git identity: personal by default; the argo includeIf applies under ~/projects/argo/.
 [ "$(git config --global user.email)" = "$expect_email" ] || fail "global git email is '$(git config --global user.email)'"
 ok "global git email"
 tmp="$HOME/projects/argo/.dotfiles-test-$$"
 mkdir -p "$tmp" && git -C "$tmp" init -q
+argo_ssh="$(git -C "$tmp" config core.sshCommand)"
 argo_email="$(git -C "$tmp" config user.email)"
 rm -rf "$tmp"
-[ "$argo_email" = "CHANGE_ME@work.example" ] || fail "argo includeIf not applied, got '$argo_email'"
-ok "argo includeIf"
+[ "$argo_ssh" = "ssh -i ~/.ssh/argo" ] || fail "argo includeIf not applied, core.sshCommand is '$argo_ssh'"
+if [ "$argo_email" = "$expect_email" ]; then
+  ok "argo includeIf (work email not set yet: create ~/.gitconfig-argo.local)"
+else
+  ok "argo includeIf (work email $argo_email)"
+fi
 
 # 5. Startup time (informational). python3 exists on macOS (CLT) and Debian.
 now_ms() { python3 -c 'import time; print(int(time.time() * 1000))'; }

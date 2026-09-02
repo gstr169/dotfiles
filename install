@@ -219,7 +219,7 @@ log "Done. Manual follow-ups:"
 cat <<FOLLOWUPS
   - Open a new terminal (antidote clones plugins on first start; that one takes longer).
   - Copy ~/.ssh keys and ~/.ssh/config from the old machine (nothing SSH is tracked).
-  - Set the work email in $BASEDIR/git/gitconfig-argo (placeholder CHANGE_ME@work.example).
+  - Work email for ~/projects/argo/: printf "[user]\n\temail = you@work.example\n" > ~/.gitconfig-argo.local
   - pyenv install <versions you need>; pyenv global <version>.
   - Sign in to JetBrains Toolbox and install PyCharm / GoLand.
   - Google Cloud SDK, if needed: install to ~/google-cloud-sdk (auto-detected by the shell).

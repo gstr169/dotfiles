@@ -1,10 +1,10 @@
 # Aliases. grep and find are deliberately NOT aliased (rg/fd have different flags).
 
 if (( $+commands[eza] )); then
-  alias ls='eza --group-directories-first --icons'
-  alias ll='eza -l --group-directories-first --icons --git'
-  alias la='eza -la --group-directories-first --icons --git'
-  alias lt='eza --tree --level=2 --icons'
+  alias ls='eza --group-directories-first --icons=auto'
+  alias ll='eza -l --group-directories-first --icons=auto --git'
+  alias la='eza -la --group-directories-first --icons=auto --git'
+  alias lt='eza --tree --level=2 --icons=auto'
 else
   alias ll='ls -lh'
   alias la='ls -lAh'

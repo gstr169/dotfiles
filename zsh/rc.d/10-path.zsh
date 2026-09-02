@@ -16,6 +16,8 @@ fi
 export GOPATH="${GOPATH:-$HOME/go}"
 [[ -d "$GOPATH/bin" ]] && path+=("$GOPATH/bin")
 [[ -d "$HOME/.cargo/bin" ]] && path+=("$HOME/.cargo/bin")
+# brew's rustup is keg-only: its cargo/rustc proxies live under opt/rustup/bin.
+[[ -n "$HOMEBREW_PREFIX" && -d "$HOMEBREW_PREFIX/opt/rustup/bin" ]] && path+=("$HOMEBREW_PREFIX/opt/rustup/bin")
 
 # Non-login interactive shells (e.g. `zsh` typed in a terminal) skip zprofile.
 if [[ -z "$EDITOR" ]]; then
