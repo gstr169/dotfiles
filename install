@@ -91,6 +91,24 @@ while read -r target; do
 done < <(sed -nE 's/^    (~[^:]+):.*/\1/p' install.conf.yaml)
 [ -d "$backup_dir" ] || echo "  nothing to back up"
 
+# ssh: keep keys' passphrases in the agent (and macOS Keychain). Nothing else in
+# ~/.ssh is managed; this only prepends a Host * block once, if it is missing.
+if [ ! -f "$HOME/.ssh/config" ] || ! grep -q '^\s*AddKeysToAgent' "$HOME/.ssh/config"; then
+  log "ssh: adding agent/keychain defaults to ~/.ssh/config"
+  mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
+  { cat <<'SSHBLOCK'
+# Added by dotfiles install: remember key passphrases (macOS Keychain; ignored on Linux).
+Host *
+  IgnoreUnknown UseKeychain
+  UseKeychain yes
+  AddKeysToAgent yes
+
+SSHBLOCK
+    [ -f "$HOME/.ssh/config" ] && cat "$HOME/.ssh/config"; } > "$HOME/.ssh/config.new"
+  mv "$HOME/.ssh/config.new" "$HOME/.ssh/config"
+  chmod 600 "$HOME/.ssh/config"
+fi
+
 log "Dotbot: links and directories"
 ./dotbot/bin/dotbot -d "$BASEDIR" -c install.conf.yaml
 [ "$OS" = Darwin ] && ./dotbot/bin/dotbot -d "$BASEDIR" -c install.macos.yaml

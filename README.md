@@ -42,6 +42,10 @@ installed with brew.
 git-flow (AVH edition) is built from source into `~/.local/bin`, because Homebrew
 removed its formula.
 
+SSH: keys are never tracked. The installer only prepends a `Host *` block to
+`~/.ssh/config` once, enabling `AddKeysToAgent` and macOS `UseKeychain`, so a
+key passphrase is asked once and then remembered.
+
 Not managed: SSH keys, Google Cloud SDK (install to `~/google-cloud-sdk`; it is
 auto-detected), pyenv Python versions, JetBrains IDEs (use Toolbox).
 
