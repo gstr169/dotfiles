@@ -58,6 +58,14 @@ auto-detected), pyenv Python versions, JetBrains IDEs (use Toolbox).
 - Run `tests/check-shell.sh` to verify.
 - See [docs/TRY.md](docs/TRY.md) for the new tools worth learning.
 
+## Default apps (macOS)
+
+`macos/default-apps.duti` maps file types to apps (Sublime for text and code, Chrome
+for html, Preview for images, VLC for media, BambuStudio for 3D files). The installer
+offers to apply it once; macOS then shows one consent dialog per file type, click
+"Use <app>" on each; re-run `./install` after deleting `group_default-apps=` from
+`~/.dotfiles.local` to apply again after editing the file.
+
 ## Layout
 
 - `zsh/zshenv`, `zsh/zprofile`, `zsh/zshrc`: shell entry points, linked into `~`.

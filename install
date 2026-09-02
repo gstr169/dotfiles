@@ -171,6 +171,18 @@ if [ "$OS" = Darwin ] && [ -z "$NO_GUI" ]; then
   if ask_group macos-defaults "macOS defaults (fast key repeat, show hidden files)"; then
     ./macos-defaults.sh
   fi
+
+  if ask_group default-apps "default apps per file type (Sublime for text/code, VLC for media, ...)"; then
+    if command -v duti >/dev/null; then
+      echo "  macOS asks for consent per file type: Finder will show one dialog per line below."
+      echo "  Click 'Use <app>' on each. Extensions macOS has no file type for are skipped."
+      grep -vE '^\s*(#|$)' macos/default-apps.duti | while read -r app ext role; do
+        out="$(duti -s "$app" "$ext" "$role" 2>&1)" || echo "  skipped $ext: ${out##*: }"
+      done
+    else
+      warn "duti not installed; skipping default apps"
+    fi
+  fi
 fi
 
 if [ "$OS" = Linux ] && [ -z "$NO_GUI" ]; then

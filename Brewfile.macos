@@ -2,6 +2,8 @@
 
 # macOS-only CLI: sudo-free temperature/power monitor for Apple Silicon (`macmon`, `temp`).
 brew "macmon"
+# macOS-only CLI: sets default apps per file type from macos/default-apps.duti.
+brew "duti"
 cask "iterm2"
 cask "sublime-text"
 cask "jetbrains-toolbox"

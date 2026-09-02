@@ -1,0 +1,66 @@
+# Default apps per file type, applied by ./install on macOS via `duti` (prompted once).
+# Format: <bundle id>  <extension or UTI>  <role>. Re-applying is harmless.
+# macOS 26 asks for consent: Finder shows one "Use <app> / Keep <old>" dialog per line.
+# Extensions with no registered file type (toml, ini, conf, cfg, env, sql, go) cannot be
+# bound this way (LaunchServices error -50); they are listed for documentation and skipped.
+# Rule: Sublime is the notepad for anything text-like; JetBrains IDEs open projects,
+# not double-clicked files; scripts must never open in a terminal (that runs them).
+
+# --- text, config, data -> Sublime Text ---
+com.sublimetext.4   txt    all
+com.sublimetext.4   md     all
+com.sublimetext.4   json   all
+com.sublimetext.4   yaml   all
+com.sublimetext.4   yml    all
+com.sublimetext.4   toml   all
+com.sublimetext.4   ini    all
+com.sublimetext.4   conf   all
+com.sublimetext.4   cfg    all
+com.sublimetext.4   env    all
+com.sublimetext.4   csv    all
+com.sublimetext.4   log    all
+com.sublimetext.4   xml    all
+com.sublimetext.4   sql    all
+com.sublimetext.4   public.plain-text  all
+
+# --- source code -> Sublime Text ---
+com.sublimetext.4   py     all
+com.sublimetext.4   go     all
+com.sublimetext.4   sh     all
+com.sublimetext.4   zsh    all
+com.sublimetext.4   bash   all
+com.sublimetext.4   js     all
+com.sublimetext.4   ts     all
+com.sublimetext.4   css    all
+com.sublimetext.4   public.shell-script  all
+com.sublimetext.4   public.source-code   all
+
+# --- web pages -> Chrome ---
+com.google.Chrome   html   all
+com.google.Chrome   htm    all
+
+# --- images, pdf -> Preview ---
+com.apple.Preview   pdf    all
+com.apple.Preview   png    all
+com.apple.Preview   jpg    all
+com.apple.Preview   jpeg   all
+com.apple.Preview   gif    all
+com.apple.Preview   heic   all
+com.apple.Preview   svg    all
+
+# --- video and audio -> VLC ---
+org.videolan.vlc    mp4    all
+org.videolan.vlc    mkv    all
+org.videolan.vlc    avi    all
+org.videolan.vlc    mov    all
+org.videolan.vlc    webm   all
+org.videolan.vlc    mp3    all
+org.videolan.vlc    flac   all
+org.videolan.vlc    m4a    all
+org.videolan.vlc    wav    all
+
+# --- 3D printing ---
+com.bambulab.bambu-studio  stl  all
+com.bambulab.bambu-studio  3mf  all
+com.bambulab.bambu-studio  obj  all
+org.openscad.OpenSCAD      scad all
