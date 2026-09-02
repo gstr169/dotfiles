@@ -1,5 +1,16 @@
 # Tool integrations. Every block is guarded: a missing binary prints nothing.
-# pyenv and direnv hooks come from their Oh My Zsh plugins (plugins.txt).
+# The pyenv hook comes from its Oh My Zsh plugin (plugins.txt).
+
+# direnv: hand-rolled hook instead of `direnv hook zsh` / the OMZ plugin. direnv's own
+# hook wraps the export in `trap '' SIGINT` ... `trap - SIGINT` inside precmd, and with
+# zsh-defer-loaded plugins (F-Sy-H, autosuggestions) that leaves Up-arrow stuck on the
+# newest history entry after a Ctrl+C.
+if (( $+commands[direnv] )); then
+  _direnv_hook() { eval "$(direnv export zsh)" }
+  autoload -Uz add-zsh-hook
+  add-zsh-hook precmd _direnv_hook
+  add-zsh-hook chpwd _direnv_hook
+fi
 
 # fzf: Ctrl+R history, Ctrl+T files, Alt+C directories.
 if (( $+commands[fzf] )); then

@@ -8,8 +8,7 @@ setopt EXTENDED_HISTORY       # timestamps in history
 setopt HIST_IGNORE_ALL_DUPS   # drop older duplicates
 setopt HIST_IGNORE_SPACE      # commands starting with a space are not saved
 setopt HIST_REDUCE_BLANKS
-setopt SHARE_HISTORY          # share across tabs
-setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY          # share across tabs (do not add INC_APPEND_HISTORY as well)
 
 # Navigation
 setopt AUTO_CD                # `dirname` == `cd dirname`
@@ -31,4 +30,3 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 # Helpers referenced by `conditional:` annotations in plugins.txt
 is-macos() { [[ "$OSTYPE" == darwin* ]] }
 is-linux() { [[ "$OSTYPE" == linux* ]] }
-has-direnv() { (( $+commands[direnv] )) }
