@@ -15,7 +15,7 @@ jobs:
       HOMEBREW_NO_INSTALL_CLEANUP: "1"
       HOMEBREW_NO_ENV_HINTS: "1"
       # Heavy formulae that add nothing to the shell checks.
-      HOMEBREW_BUNDLE_BREW_SKIP: "ffmpeg postgresql@14 awscli awscurl helm k9s stern kubernetes-cli nmap go rustup libpq python@3.13 magic-wormhole yt-dlp black sops age rclone sevenzip git-lfs sshpass"
+      HOMEBREW_BUNDLE_BREW_SKIP: "ffmpeg helm k9s stern kubernetes-cli nmap go rustup libpq magic-wormhole yt-dlp black sops age rclone sevenzip git-lfs sshpass"
     steps:
       - uses: actions/checkout@v4
         with:

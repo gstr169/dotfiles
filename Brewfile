@@ -34,15 +34,12 @@ brew "pyenv"
 brew "virtualenv"
 brew "uv"
 brew "black"
-brew "python@3.13"
 
 # --- go and rust ---
 brew "go"
 brew "rustup"
 
 # --- cloud and kubernetes ---
-brew "awscli"
-brew "awscurl"
 brew "kubernetes-cli"
 brew "helm"
 brew "k9s"
@@ -51,4 +48,3 @@ brew "gh"
 
 # --- databases ---
 brew "libpq"
-brew "postgresql@14"

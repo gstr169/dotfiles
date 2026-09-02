@@ -30,7 +30,7 @@ Answers are remembered in `~/.dotfiles.local`. Delete a line to be asked again.
 
 | | macOS | Linux |
 |---|---|---|
-| CLI (`Brewfile`) | fzf, zoxide, eza, bat, ripgrep, fd, delta, lazygit, micro, jq, git-flow, awscli, kubectl, helm, k9s, stern, gh, pyenv, virtualenv, uv, black, go, rustup, libpq, postgresql@14, ... | same, via Linuxbrew |
+| CLI (`Brewfile`) | fzf, zoxide, eza, bat, ripgrep, fd, delta, lazygit, micro, jq, git-flow, kubectl, helm, k9s, stern, gh, pyenv, virtualenv, uv, black, go, rustup, libpq, ... | same, via Linuxbrew |
 | Required GUI (`Brewfile.macos`) | iTerm2, Sublime Text, JetBrains Toolbox, Docker Desktop, Chrome, Enpass | none |
 | Prompt font | MesloLGS NF, downloaded into `~/Library/Fonts` | MesloLGS NF, into `~/.local/share/fonts` |
 | Optional groups | Messaging, Notes and AI, Media and cloud, Network | Browser and editors, Messaging, Media, Network, Docker Engine (`linux-gui/`) |
