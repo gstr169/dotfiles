@@ -40,7 +40,14 @@ if (( $+commands[bat] )); then
 fi
 
 # pay-respects: type `f` after a failed command to get the fixed one.
-(( $+commands[pay-respects] )) && eval "$(pay-respects zsh --alias f)"
+if (( $+commands[pay-respects] )); then
+  eval "$(pay-respects zsh --alias f)"
+  # Its hook re-expands $PROMPT with `print -P`, which fails on powerlevel10k's prompt
+  # ("__pr_base:1: bad substitution"). Same function without the prompt prefix.
+  __pr_base() {
+    _PR_MODE="$1" _PR_PREFIX="" _PR_LAST_COMMAND="$2" _PR_ALIAS="$(alias)" _PR_SHELL="zsh" pay-respects
+  }
+fi
 
 # Google Cloud SDK, manual install location.
 if [[ -d "$HOME/google-cloud-sdk" ]]; then
