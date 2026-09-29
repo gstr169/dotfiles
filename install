@@ -183,6 +183,15 @@ if [ "$OS" = Darwin ] && [ -z "$NO_GUI" ]; then
       warn "duti not installed; skipping default apps"
     fi
   fi
+
+  # The iTerm2 hotkey window (Option+Space) only works while iTerm2 is running.
+  if ask_group iterm2-login "open iTerm2 at login (keeps the Option+Space hotkey window available)"; then
+    osascript >/dev/null <<'OSA' || warn "could not add iTerm2 login item (allow Automation for System Events and re-run)"
+tell application "System Events"
+  if not (exists login item "iTerm") then make login item at end with properties {path:"/Applications/iTerm.app"}
+end tell
+OSA
+  fi
 fi
 
 if [ "$OS" = Linux ] && [ -z "$NO_GUI" ]; then

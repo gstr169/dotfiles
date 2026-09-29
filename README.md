@@ -66,6 +66,11 @@ offers to apply it once; macOS then shows one consent dialog per file type, clic
 "Use <app>" on each; re-run `./install` after deleting `group_default-apps=` from
 `~/.dotfiles.local` to apply again after editing the file.
 
+The installer also offers to add iTerm2 as a login item, so the Option+Space
+hotkey window works right after login. If the hotkey stops working with "Hotkeys
+Unavailable", another app holds secure keyboard input; the usual one here is a locked
+Enpass (open and close its menu bar window to release it).
+
 ## Layout
 
 - `zsh/zshenv`, `zsh/zprofile`, `zsh/zshrc`: shell entry points, linked into `~`.
