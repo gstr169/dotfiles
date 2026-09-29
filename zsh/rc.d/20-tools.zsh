@@ -47,6 +47,17 @@ if (( $+commands[pay-respects] )); then
   __pr_base() {
     _PR_MODE="$1" _PR_PREFIX="" _PR_LAST_COMMAND="$2" _PR_ALIAS="$(alias)" _PR_SHELL="zsh" pay-respects
   }
+  # pay-respects (0.8.8) drops leading words with "=" after the first character as env
+  # assignments, then panics when nothing is left: e.g. a pasted `"FOO"=1` output line.
+  # Such a line (or an empty command) has nothing to fix, so report it the way zsh would.
+  command_not_found_handler() {
+    local -a rest=( ${@:#?*=*} )  # words pay-respects keeps; unquoted, so empty words drop too
+    if (( $#rest == 0 )); then
+      print -ru2 -- "zsh: command not found: $1"
+      return 127
+    fi
+    eval $(__pr_base "cnf" "$*")
+  }
 fi
 
 # Google Cloud SDK, manual install location.

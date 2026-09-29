@@ -61,7 +61,16 @@ else
   ok "argo includeIf (work email $argo_email)"
 fi
 
-# 5. Startup time (informational). python3 exists on macOS (CLT) and Debian.
+# 5. A pasted `"NAME"=value` line must not crash pay-respects' command-not-found hook.
+: > "$errfile"
+run_zsh '"DOTFILES_CNF_CHECK"=1'
+if grep -q 'panicked' "$errfile"; then
+  echo "--- zsh stderr ---"; cat "$errfile"; echo "------------------"
+  fail "command-not-found hook panicked on an assignment-looking line"
+fi
+ok "command-not-found hook survives an assignment-looking line"
+
+# 6. Startup time (informational). python3 exists on macOS (CLT) and Debian.
 now_ms() { python3 -c 'import time; print(int(time.time() * 1000))'; }
 start="$(now_ms)"
 zsh -ilc exit 2>/dev/null
