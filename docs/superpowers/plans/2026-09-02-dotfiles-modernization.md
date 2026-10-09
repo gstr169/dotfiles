@@ -10,6 +10,12 @@
 
 **Spec:** `docs/superpowers/specs/2026-09-02-dotfiles-modernization-design.md`
 
+**Status:** executed 2026-09-02; historical. Code blocks below are the versions
+written at the time, not the shipped files. Known differences from the repo:
+git-flow (AVH) is built from source, not `brew "git-flow-avh"`; `cat` is not
+aliased to bat; `ENABLE_CORRECTION` is `"false"`. The spec's header lists the
+full set of deviations with commits.
+
 ## Global Constraints
 
 - Target platforms: macOS (Apple Silicon and Intel) and Debian/Ubuntu Linux only. `bootstrap.sh` and `install` abort with a message on anything else.

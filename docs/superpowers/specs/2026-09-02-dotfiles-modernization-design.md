@@ -1,8 +1,26 @@
 # Dotfiles modernization design
 
 Date: 2026-09-02
-Status: approved in discussion, pending written review
 Repo: github.com/gstr169/dotfiles
+Status: implemented 2026-09-02; historical. Where this spec and the repo
+disagree, the repo is current. Known deviations, with the commit that made them:
+
+- git-flow-avh is not a brew formula: Homebrew removed it. `install` builds the
+  AVH edition from source into `~/.local/bin`; only `gnu-getopt` is in the
+  Brewfile (44774cc).
+- pay-respects is not in Homebrew: `install` runs `cargo install --locked
+  pay-respects`, skipped by `--no-cargo` (0d4a286).
+- There is no `install.linux.yaml`. Linux-specific behaviour lives in `install`
+  and `linux-gui/` (agreed in the plan's Global Constraints).
+- `cat` is not aliased to bat: bat rejects `cat -v` and `cat -A` (483f553).
+- `ENABLE_CORRECTION` is `"false"`: it never took effect in the old config and
+  turning it on for real was unwanted (8a4ca0b).
+- SSH: dotbot still creates `~/.ssh` with mode 700, and `install` additionally
+  prepends a `Host *` block to `~/.ssh/config` once, enabling `AddKeysToAgent`
+  and macOS `UseKeychain` (93b55be).
+
+See `claude_docs/2026-09-02-dotfiles-rewrite-and-migration.md` for the full
+list of bugs found during implementation.
 
 ## Goal
 
