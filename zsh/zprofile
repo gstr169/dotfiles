@@ -22,6 +22,10 @@ for _p in "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" \
 done
 unset _p
 
+# Docker Desktop CLI symlinks (docker, docker-compose). Docker Desktop injects a
+# hardcoded `~/.docker/bin` line here if it finds none, so keep this one.
+[[ -d "$HOME/.docker/bin" ]] && path+=("$HOME/.docker/bin")
+
 # Editor: micro if installed, nano otherwise (nano ships everywhere).
 if (( $+commands[micro] )); then
   export EDITOR=micro
